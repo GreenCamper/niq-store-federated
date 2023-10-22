@@ -1,0 +1,22 @@
+{
+  "name": "niq-store-federated",
+  "author": "mahmood@lunaconsulting.ca",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "concurrently \"yarn start:background\" \"yarn start:foreground\"",
+    "start:foreground": "lerna run start --scope niq-root-store-front-app",
+    "start:background": "lerna run --parallel start --ignore niq-root-store-front-app",
+    "build": "lerna run build",
+    "serve": "lerna run --parallel serve",
+    "clean": "lerna run --parallel clean",
+    "prepare": "lerna run yarn"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "lerna": "3.22.1"
+  }
+}
