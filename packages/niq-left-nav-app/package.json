@@ -4,12 +4,13 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@mui/icons-material": "^5.14.14",
     "@mui/material": "^5.14.14",
     "@mui/styled-engine-sc": "^5.0.0",
-    "styled-components": "^5.0.0",
     "dotenv": "^14.3.2",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "styled-components": "^5.0.0"
   },
   "scripts": {
     "start": "webpack serve",
@@ -34,7 +35,6 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
-    "babel-loader": "^8.2.3",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.5.1",
@@ -43,6 +43,7 @@
     "@types/react": "^18.2.31",
     "@types/react-dom": "^18.2.14",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "babel-loader": "^8.2.3",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard-with-typescript": "^39.1.1",

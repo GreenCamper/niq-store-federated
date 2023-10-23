@@ -50,7 +50,7 @@ module.exports = (env, argv) => {
         filename: 'remoteEntry.js',
         exposes: {
           // exposes each component
-          './LeftNav': './src/components/LeftNav',
+          './LeftNav': './src/components/LeftNav.tsx',
         },
         shared: {
           ...deps,
@@ -64,6 +64,11 @@ module.exports = (env, argv) => {
             singleton: true,
             eager: true,
             requiredVersion: deps['react-router-dom'],
+          },
+          'niq-store-shared-lib': {
+            import: 'niq-store-shared-lib',
+            requiredVersion: require('../niq-store-shared-lib/package.json')
+              .version,
           },
         },
       }),
