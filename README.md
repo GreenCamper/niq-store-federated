@@ -4,6 +4,11 @@
 ![Screenshot 2023-10-22 at 23 46 53](https://github.com/GreenCamper/niq-store-federated/assets/21290403/cabafc30-8dcd-4f46-961b-80fccdc6c26d)
 
 
+![Screenshot 2023-10-23 at 00 23 16](https://github.com/GreenCamper/niq-store-federated/assets/21290403/1d1a27c0-06d3-4840-b934-8bff12b6c63b)
+
+![Screenshot 2023-10-23 at 00 23 58](https://github.com/GreenCamper/niq-store-federated/assets/21290403/f37a1ec5-9d04-419a-b9a0-454e99afa8de)
+
+
 `niq-store-federated` is a monorepo that leverages Lerna and Yarn workspaces. Within the `packages` directory, there are several micro apps:
 
 - **niq-root-store-front-app**: This is the primary micro app, tasked with fetching products and supplying contexts. It employs lazy loading, alongside React Suspense, to load other micro apps.
