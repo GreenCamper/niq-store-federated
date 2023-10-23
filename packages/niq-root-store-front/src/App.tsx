@@ -1,8 +1,6 @@
 import * as React from 'react'
-import Container from '@mui/material/Container'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
 import NIQContainer from './components/Container'
+import { FetchProvider, SelectionProvider } from 'niq-store-shared-lib'
 
 const LeftNav = React.lazy(() => import('LeftNavApp/LeftNav'))
 const CategoryRenderer = React.lazy(
@@ -12,20 +10,17 @@ const ProductDetails = React.lazy(
   () => import('ProductDetailsApp/ProductDetails'),
 )
 
-const App: React.FC = () => {
+const App: React.FC = (): React.ReactElement => {
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          RootApp
-        </Typography>
+    <FetchProvider url="https://fakestoreapi.com">
+      <SelectionProvider>
         <NIQContainer
           LeftNav={LeftNav}
           CategoryRenderer={CategoryRenderer}
           ProductDetails={ProductDetails}
         />
-      </Box>
-    </Container>
+      </SelectionProvider>
+    </FetchProvider>
   )
 }
 

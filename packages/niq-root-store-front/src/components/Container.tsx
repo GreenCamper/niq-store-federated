@@ -1,14 +1,45 @@
 import * as React from 'react'
-import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
+import { useFetchContext, useSelection } from 'niq-store-shared-lib'
 
-const CustomizedBox = styled(Box)`
+const ContainerWrapper = styled(Box)`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: '100%';
+`
+
+const LeftNavBox = styled(Box)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+`
+
+const MaintContentBox = styled(Box)`
+  background-color: blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 3;
+  margin-right: 15px;
+  padding: 15px;
+`
+
+const Header = styled(Box)`
+  background-color: rgb(30, 33, 39);
+  display: flex;
+  align-items: center;
+  height: 10rem;
+  h1 {
+    margin: auto;
+    font-weight: 800;
+    color: white;
+    text-align: center;
+  }
 `
 
 type ContainerAppProps = {
@@ -21,28 +52,36 @@ const NIQContainer: React.FC<ContainerAppProps> = ({
   LeftNav,
   CategoryRenderer,
   ProductDetails,
-}) => {
+}): React.ReactElement => {
+  const { loading } = useFetchContext()
+  const { selectedProduct, selectedCategory } = useSelection()
   return (
-    <Container maxWidth="sm">
-      <Box>
-        <Typography variant="h4" component="h1" gutterBottom>
-          NIQContainer
+    <React.Fragment>
+      <Header>
+        <Typography variant="h2" component="h1" gutterBottom>
+          My Fabulous Store
         </Typography>
-        <CustomizedBox>
-          <React.Fragment>
+      </Header>
+      <ContainerWrapper>
+        <LeftNavBox>
+          <React.Suspense fallback={<CircularProgress />}>
+            {!loading && <LeftNav />}
+          </React.Suspense>
+        </LeftNavBox>
+        <MaintContentBox>
+          {selectedCategory ? (
             <React.Suspense fallback={<CircularProgress />}>
-              <LeftNav />
+              {!selectedProduct && <CategoryRenderer />}
             </React.Suspense>
-            <React.Suspense fallback={<CircularProgress />}>
-              <CategoryRenderer />
-            </React.Suspense>
-            <React.Suspense fallback={<CircularProgress />}>
-              <ProductDetails />
-            </React.Suspense>
-          </React.Fragment>
-        </CustomizedBox>
-      </Box>
-    </Container>
+          ) : (
+            <Box> Please Select a category </Box>
+          )}
+          <React.Suspense fallback={<CircularProgress />}>
+            {selectedProduct && <ProductDetails />}
+          </React.Suspense>
+        </MaintContentBox>
+      </ContainerWrapper>
+    </React.Fragment>
   )
 }
 

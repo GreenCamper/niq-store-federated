@@ -1,4 +1,11 @@
-import { Select, MenuItem, InputLabel, FormControl, Box } from '@mui/material'
+import {
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Box,
+  Typography,
+} from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import Button from '@mui/material/Button'
 import * as React from 'react'
@@ -23,8 +30,23 @@ const StyledGenericSelect = styled(Box)`
   width: 100%;
   padding: 16px;
   margin-right: 8px;
-  flex-grow: 1; // Make it take the available space
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `
+const TruncatedTypography = styled(Typography)`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+`
+
+const StyledSelect = styled(Select)`
+  max-width: 100%;
+  & .MuiSelect-select {
+    padding-right: 25px; // Adjust this value as needed
+  }
+`
+
 const StyledCloseButton = styled(Button)`
   background-color: #007bff;
   color: white;
@@ -36,9 +58,11 @@ const StyledCloseButton = styled(Button)`
   margin-left: 12px;
 `
 const StyledInputLabel = styled(InputLabel)`
-  transform: translate(0, -20px) scale(1); // Adjust the second value as necessary
+  transform: translate(0, -20px) scale(1);
 `
-const GenericSelect: React.FC<GenericSelectProps> = ({ type }) => {
+const GenericSelect: React.FC<GenericSelectProps> = ({
+  type,
+}): React.ReactElement => {
   const {
     setSelectedCategory,
     setSelectedProduct,
@@ -65,7 +89,7 @@ const GenericSelect: React.FC<GenericSelectProps> = ({ type }) => {
     }
     return clearProductsSelection()
   }
-  const values = (type: GenericSelectType) => {
+  const getSelectOptions = (type: GenericSelectType) => {
     if (type === GenericSelectType.CATEGORY_SELECT) {
       return extractCategories(products)
     }
@@ -73,26 +97,38 @@ const GenericSelect: React.FC<GenericSelectProps> = ({ type }) => {
       (product) => product.title,
     )
   }
+
+  const selectedValue = (type: GenericSelectType) => {
+    return type === GenericSelectType.CATEGORY_SELECT
+      ? selectedCategory
+      : selectedProduct
+  }
+
+  const setStatus = (type: GenericSelectType) => {
+    if (type === GenericSelectType.PRODUCT_SELECT) {
+      return selectedCategory ? false : true
+    }
+  }
   return (
     <StyledGenericSelect>
       <FormControl fullWidth>
         <StyledInputLabel id="generic-select-label">{type}</StyledInputLabel>
-        <Select
+        <StyledSelect
+          disabled={setStatus(type)}
           labelId="generic-select-label"
           id="generic-select"
-          value={
-            type === GenericSelectType.CATEGORY_SELECT
-              ? selectedCategory
-              : selectedProduct
-          }
+          value={selectedValue(type)}
           onChange={handleChange}
+          renderValue={(selected) => (
+            <TruncatedTypography noWrap>{String(selected)}</TruncatedTypography>
+          )}
         >
-          {values(type).map((value, index) => (
-            <MenuItem key={index} value={`${value}`}>
-              {`${value}`}
+          {getSelectOptions(type).map((value, index) => (
+            <MenuItem key={index} value={String(value)}>
+              {String(value)}
             </MenuItem>
           ))}
-        </Select>
+        </StyledSelect>
       </FormControl>
       <StyledCloseButton onClick={() => handleClearValues(type)}>
         <CloseIcon fontSize="small" />

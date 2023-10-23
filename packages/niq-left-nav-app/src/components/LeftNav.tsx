@@ -12,6 +12,8 @@ const ContainerBox = styled(Box)`
   width: 100%;
   padding: 16px;
   margin-top: 16px;
+  max-width: 100%; // Set a specific width
+  overflow: hidden; // Add this line to handle overflow
 `
 
 const StyledGenericSelect = styled(GenericSelect)`
@@ -19,7 +21,7 @@ const StyledGenericSelect = styled(GenericSelect)`
   width: 100%; // To ensure it takes the full width
 `
 
-const LeftNav: React.FC = () => {
+const LeftNav: React.FC = (): React.ReactElement => {
   return (
     <ContainerBox>
       <StyledGenericSelect type={GenericSelectType.CATEGORY_SELECT} />
