@@ -74,12 +74,14 @@ const GenericSelect: React.FC<GenericSelectProps> = ({
   const { products } = useFetchContext()
 
   const handleChange = (event: any) => {
+    const value = event.target.value as string
     if (type === GenericSelectType.CATEGORY_SELECT) {
-      setSelectedCategory(event.target.value as string)
-    } else {
-      if (type === GenericSelectType.PRODUCT_SELECT) {
-        setSelectedProduct(event.target.value as string)
+      if (selectedProduct) {
+        clearProductsSelection()
       }
+      setSelectedCategory(value)
+    } else if (type === GenericSelectType.PRODUCT_SELECT) {
+      setSelectedProduct(value)
     }
   }
 

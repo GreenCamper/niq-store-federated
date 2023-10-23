@@ -1,6 +1,7 @@
 import Category from './Category'
 
 export default interface Product {
+  id: string
   title: string
   price: number
   category: string

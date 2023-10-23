@@ -65,6 +65,11 @@ module.exports = (env, argv) => {
             eager: true,
             requiredVersion: deps['react-router-dom'],
           },
+          'niq-store-shared-lib': {
+            import: 'niq-store-shared-lib',
+            requiredVersion: require('../niq-store-shared-lib/package.json')
+              .version,
+          },
         },
       }),
       new HtmlWebpackPlugin({
